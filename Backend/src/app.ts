@@ -10,6 +10,7 @@ import referralRoutes from "./routes/referralRoutes"
 import adminRoutes from "./routes/adminRoutes"
 import commisionRoutes from "./routes/commisionRoutes"
 import walletRoutes from "./routes/walletRoutes"
+import withdrawalRoutes from "./routes/withdrawalRoutes"
 
 const app = express();
 
@@ -42,5 +43,7 @@ app.use("/api/admin" , adminRoutes)
 app.use("/api/commission-settings" , commisionRoutes)
 
 app.use( "/api/wallet", walletRoutes);
+
+app.use("/api/withdrawals" , withdrawalRoutes)
 
 export default app;

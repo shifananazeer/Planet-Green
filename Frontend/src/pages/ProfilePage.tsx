@@ -470,7 +470,12 @@ const handleProfileUpdate =
 
 
           <div className="bg-white rounded-3xl shadow border p-6">
-
+            <div className="mb-4 p-3 rounded-xl bg-green-50 text-green-700">
+            {user.upiId ||
+            user.accountNumber
+              ? "✓ Withdrawal details configured"
+              : "⚠ Please add withdrawal details before requesting withdrawals"}
+          </div>
             <h3 className="text-xl font-bold mb-5">
               Withdrawal Details
             </h3>

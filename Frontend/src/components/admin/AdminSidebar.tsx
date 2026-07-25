@@ -10,6 +10,8 @@ import {
    Wallet,
    BadgeIndianRupee,
    DollarSign,
+   Banknote,
+  ArrowDownToLine,
   X,
 } from "lucide-react";
 
@@ -43,11 +45,7 @@ export default function AdminSidebar({
       path: "/admin/users",
       icon: Users,
     },
-    {
-      label: "Referrals",
-      path: "/admin/referrals",
-      icon: Share2,
-    },
+    
     {
       label: "Orders",
       path: "/admin/orders",
@@ -59,20 +57,30 @@ export default function AdminSidebar({
       icon: BadgeIndianRupee,
     },
     {
-      label: "Wallet",
-      path: "/admin/wallet",
-      icon: Wallet
-    },
-    {
-      label: "Network Tree",
-      path: "/admin/network-tree",
-      icon: Users,
-    },
-    {
-      label: "Commission Report",
-      path: "/admin/commission-report",
-      icon: DollarSign,
-    },
+  label: "Wallet",
+  path: "/admin/wallet",
+  icon: Banknote,
+},
+{
+  label: "Withdrawals",
+  path: "/admin/withdrawals",
+  icon: ArrowDownToLine,
+},
+{
+  label: "My Withdrawals",
+  path: "/admin/my-withdrawals",
+  icon: Wallet,
+},
+{
+  label: "Network Tree",
+  path: "/admin/network-tree",
+  icon: Share2,
+},
+{
+  label: "Commission Report",
+  path: "/admin/commission-report",
+  icon: DollarSign,
+},
     {
       label:"Profile",
       path:"/admin/profile",
@@ -81,17 +89,16 @@ export default function AdminSidebar({
   ];
 
   return (
-    <aside
+   <aside
   className="
-    fixed
-    left-0
-    top-0
     h-screen
     w-64
     bg-blue-950
     text-white
     shadow-xl
-    z-50
+    flex
+    flex-col
+    overflow-hidden
   "
 >
       {/* Header */}
@@ -106,15 +113,15 @@ export default function AdminSidebar({
         </div>
 
         <button
-          onClick={onClose}
-          className="lg:hidden"
-        >
-          <X size={22} />
-        </button>
+        onClick={() => onClose?.()}
+        className="lg:hidden"
+      >
+        <X size={22} />
+      </button>
       </div>
 
       {/* Menu */}
-      <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+    <nav className="flex-1 overflow-y-auto p-4 space-y-2 hide-scrollbar">
 
         {menuItems.map((item) => {
           const Icon = item.icon;
@@ -126,7 +133,7 @@ export default function AdminSidebar({
             <Link
               key={item.path}
               to={item.path}
-              onClick={onClose}
+              onClick={() => onClose?.()}
               className={`
                 flex items-center gap-3
                 px-4 py-3

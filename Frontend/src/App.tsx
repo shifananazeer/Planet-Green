@@ -24,7 +24,9 @@ import NetworkTreePage from "./pages/user/NetworkTreePage";
 import AdminNetworkTreePage from "./pages/admin/AdminNetworkTreePage";
 import AdminCommissionReportPage from "./pages/admin/AdminCommissionReportPage";
 import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
-
+import WithdrawalPage from "./pages/user/WithdrawalPage";
+import AdminWithdrawalPage from "./pages/admin/AdminWithdrawalPage";
+import AdminMyWithdrawalPage from "./pages/admin/AdminMyWithdrawalPage";
 
 function App() {
   return (
@@ -41,24 +43,17 @@ function App() {
 
 
 <Route path="/admin" element={<AdminLayout />}>
-
   <Route path="dashboard"element={<AdminDashboard />}/>
-
-<Route path="/admin/category" element={<CategoryPage/>}/>
-
-<Route path="/admin/products" element={<ProductPage/>}/>
-
-<Route path="/admin/profile" element={<ProfilePage/>}/>
-
-<Route path="/admin/purchase-settings"element={<PurchaseSettingsPage />}/>
-
-<Route path="/admin/wallet" element={<WalletPage/>}/>
-
-<Route path="/admin/network-tree" element={<AdminNetworkTreePage />}/>
-
+  <Route path="/admin/category" element={<CategoryPage/>}/>
+  <Route path="/admin/products" element={<ProductPage/>}/>
+  <Route path="/admin/profile" element={<ProfilePage/>}/>
+  <Route path="/admin/purchase-settings"element={<PurchaseSettingsPage />}/>
+  <Route path="/admin/wallet" element={<WalletPage/>}/>
+  <Route path="/admin/network-tree" element={<AdminNetworkTreePage />}/>
   <Route path="/admin/commission-report" element={<AdminCommissionReportPage/>}/>
-
   <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
+  <Route path="/admin/withdrawals" element={<AdminWithdrawalPage/>}/>
+  <Route path="/admin/my-withdrawals" element={<AdminMyWithdrawalPage/>}/>
 </Route>
 
 <Route path="/user" element={<UserLayout />}>
@@ -72,6 +67,7 @@ function App() {
   <Route path="orders" element={<MyOrdersPage/>}/>
   <Route path="wallet"element={<WalletPage />}/>
   <Route path="network-tree" element={<NetworkTreePage/>}/>
+  <Route path="withdrawals"element={<WithdrawalPage />}/>
 </Route>
         {/* 404 */}
         <Route

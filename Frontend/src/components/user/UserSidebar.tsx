@@ -62,6 +62,11 @@ export default function UserSidebar({
       icon: Wallet
     },
     {
+      label: "Withdrawals",
+      path: "/user/withdrawals",
+      icon: Wallet,
+    },
+    {
       label: "Profile",
       path: "/user/profile",
       icon: User,
