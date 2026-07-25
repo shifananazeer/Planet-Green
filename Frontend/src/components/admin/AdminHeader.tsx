@@ -75,7 +75,7 @@ const [logoutLoading, setLogoutLoading] =
 
         <div>
           <h1 className="text-lg md:text-xl font-bold text-gray-800 ">
-            Green Planet
+            Planet  Green
           </h1>
 
           <p className="hidden sm:block text-xs text-gray-500">
