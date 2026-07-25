@@ -583,3 +583,44 @@ export const getUserDetails =
       });
     }
   };
+
+
+
+  export const toggleUserStatus = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const user =
+      await User.findById(
+        req.params.id
+      );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    user.isActive =
+      !user.isActive;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: user.isActive
+        ? "User activated successfully"
+        : "User blocked successfully",
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};

@@ -16,6 +16,7 @@ import {
 
 import {
   getUserDetails,
+  toggleUserStatus
 } from "../../services/adminService";
 
 import { useNavigate } from "react-router-dom";
@@ -57,6 +58,22 @@ export default function AdminUserDetailsPage() {
     fetchUser();
   }, []);
 
+
+  const handleToggleStatus =
+  async () => {
+    try {
+      const res =
+        await toggleUserStatus(
+          user._id
+        );
+
+      alert(res.message);
+
+      fetchUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (loading) {
     return (
       <div className="p-6">
@@ -127,7 +144,20 @@ export default function AdminUserDetailsPage() {
           </div>
 
         </div>
-
+      <div className="flex gap-3 m-3">
+  <button
+    onClick={handleToggleStatus}
+    className={`px-5 py-2 rounded-lg text-white ${
+      user.isActive
+        ? "bg-red-600"
+        : "bg-green-600"
+    }`}
+  >
+    {user.isActive
+      ? "Block User"
+      : "Unblock User"}
+  </button>
+</div>
       </div>
 
       {/* Stats */}

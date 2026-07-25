@@ -120,3 +120,13 @@ export const getUserDetails =
 console.log("res" , response.data)
     return response.data;
   };
+
+  export const toggleUserStatus =
+  async (id: string) => {
+    const response =
+      await api.put(
+        `/admin/users/${id}/toggle-status`
+      );
+
+    return response.data;
+  };

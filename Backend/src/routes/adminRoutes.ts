@@ -11,7 +11,8 @@ import { getPurchaseSetting ,
          getSalesChart,
          getAllUsers,
          getUserDetails,
-         getUserStats
+         getUserStats,
+         toggleUserStatus
          } from "../controllers/adminController";
 
 const router = Router();
@@ -100,5 +101,11 @@ router.get(
   getUserDetails
 );
 
+router.put(
+  "/users/:id/toggle-status",
+  protect,
+  isAdmin,
+  toggleUserStatus
+);
 
 export default router;

@@ -191,53 +191,73 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user =
+      await User.findOne({
+        email,
+      });
 
     if (!user) {
       return res.status(400).json({
-        message: "Invalid credentials",
+        success: false,
+        message:
+          "Invalid email or password",
       });
     }
 
-    // Check if account is active
     if (!user.isActive) {
       return res.status(403).json({
-        message: "Account is inactive",
+        success: false,
+        message:
+          "Your account has been blocked by admin. Please contact support.",
       });
     }
 
-    const isMatch = await bcrypt.compare(
-      password,
-      user.password
-    );
+    const isMatch =
+      await bcrypt.compare(
+        password,
+        user.password
+      );
 
     if (!isMatch) {
       return res.status(400).json({
-        message: "Invalid credentials",
+        success: false,
+        message:
+          "Invalid email or password",
       });
     }
 
-   const token = generateToken(
-  user._id.toString(),
-  user.role
-);
+    const token =
+      generateToken(
+        user._id.toString(),
+        user.role
+      );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure:
-        process.env.NODE_ENV ===
-        "production",
-      sameSite:
-        process.env.NODE_ENV ===
-        "production"
-          ? "none"
-          : "lax",
-      maxAge:
-        7 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie(
+      "token",
+      token,
+      {
+        httpOnly: true,
+        secure:
+          process.env.NODE_ENV ===
+          "production",
+        sameSite:
+          process.env.NODE_ENV ===
+          "production"
+            ? "none"
+            : "lax",
+        maxAge:
+          7 *
+          24 *
+          60 *
+          60 *
+          1000,
+      }
+    );
 
     return res.status(200).json({
       success: true,
+      message:
+        "Login successful",
       user: {
         id: user._id,
         name: user.name,
@@ -249,14 +269,20 @@ export const login = async (
           user.totalReferrals,
         totalEarnings:
           user.totalEarnings,
-        isActive: user.isActive,
+        isActive:
+          user.isActive,
       },
     });
   } catch (error) {
-    console.error("Login Error:", error);
+    console.error(
+      "Login Error:",
+      error
+    );
 
     return res.status(500).json({
-      message: "Server Error",
+      success: false,
+      message:
+        "Internal server error",
     });
   }
 };

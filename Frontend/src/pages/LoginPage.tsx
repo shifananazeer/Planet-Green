@@ -27,7 +27,7 @@ export default function LoginPage() {
     });
   };
 
-   const handleSubmit = async (
+ const handleSubmit = async (
   e: React.FormEvent
 ) => {
   e.preventDefault();
@@ -41,7 +41,13 @@ export default function LoginPage() {
       password: formData.password,
     });
 
-    console.log(response);
+    if (!response.success) {
+      setError(
+        response.message ||
+          "Login failed"
+      );
+      return;
+    }
 
     const user = response.user;
 
@@ -53,13 +59,12 @@ export default function LoginPage() {
   } catch (err: any) {
     setError(
       err?.response?.data?.message ||
-        "Login failed"
+      "Login failed"
     );
   } finally {
     setLoading(false);
   }
 };
-
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
@@ -74,6 +79,12 @@ export default function LoginPage() {
             Login to your account
           </p>
         </div>
+
+        {error && (
+  <div className="mb-4 p-3 rounded-lg bg-red-100 text-red-700 border border-red-200">
+    {error}
+  </div>
+)}
 
         {/* Form */}
         <form
@@ -122,11 +133,12 @@ export default function LoginPage() {
           </div>
 
           <button
-            type="submit"
-            className="w-full bg-blue-950 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition"
-          >
-            Login
-          </button>
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-950 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
         </form>
 
         {/* Footer */}

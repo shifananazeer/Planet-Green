@@ -24,7 +24,7 @@ export const login = async (
     "/auth/login",
     data
   );
-
+console.log(response)
   return response.data;
 };
 
