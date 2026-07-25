@@ -12,6 +12,7 @@ import {
    DollarSign,
    Banknote,
   ArrowDownToLine,
+  Receipt,
   X,
 } from "lucide-react";
 
@@ -71,6 +72,11 @@ export default function AdminSidebar({
   path: "/admin/my-withdrawals",
   icon: Wallet,
 },
+{
+      label: "Transactions",
+      path: "/user/transactions",
+      icon: Receipt,
+    },
 {
   label: "Network Tree",
   path: "/admin/network-tree",

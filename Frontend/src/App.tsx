@@ -27,6 +27,9 @@ import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import WithdrawalPage from "./pages/user/WithdrawalPage";
 import AdminWithdrawalPage from "./pages/admin/AdminWithdrawalPage";
 import AdminMyWithdrawalPage from "./pages/admin/AdminMyWithdrawalPage";
+import TransactionsPage from "./pages/TransactionsPage";
+import AdminUsersPage from "./pages/admin/AdminUsersPage";
+import AdminUserDetailsPage from "./pages/admin/AdminUserDetailsPage";
 
 function App() {
   return (
@@ -54,6 +57,9 @@ function App() {
   <Route path="/admin/orders" element={<AdminOrdersPage/>}/>
   <Route path="/admin/withdrawals" element={<AdminWithdrawalPage/>}/>
   <Route path="/admin/my-withdrawals" element={<AdminMyWithdrawalPage/>}/>
+  <Route path="/admin/transactions" element={<TransactionsPage/>}/>
+  <Route path="/admin/users" element={<AdminUsersPage/>}/>
+  <Route path="/admin/users/:id" element={<AdminUserDetailsPage />}/>
 </Route>
 
 <Route path="/user" element={<UserLayout />}>
@@ -68,6 +74,7 @@ function App() {
   <Route path="wallet"element={<WalletPage />}/>
   <Route path="network-tree" element={<NetworkTreePage/>}/>
   <Route path="withdrawals"element={<WithdrawalPage />}/>
+  <Route path="transactions" element={<TransactionsPage />}/>
 </Route>
         {/* 404 */}
         <Route

@@ -405,3 +405,181 @@ export const getSalesChart =
       });
     }
   };
+
+
+  export const getAllUsers = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit =
+      Number(req.query.limit) || 10;
+
+    const search =
+      req.query.search?.toString() || "";
+
+    const skip =
+      (page - 1) * limit;
+
+    const query: any = {};
+
+    if (search) {
+      query.$or = [
+        {
+          name: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          email: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          mobile: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          referralCode: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ];
+    }
+
+    const users =
+      await User.find(query)
+        .select("-password")
+        .populate(
+          "referredBy",
+          "name referralCode"
+        )
+        .sort({
+          createdAt: -1,
+        })
+        .skip(skip)
+        .limit(limit);
+
+    const totalUsers =
+      await User.countDocuments(
+        query
+      );
+
+    return res.status(200).json({
+      success: true,
+      data: users,
+      pagination: {
+        totalUsers,
+        currentPage: page,
+        totalPages: Math.ceil(
+          totalUsers / limit
+        ),
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+
+export const getUserDetails =
+  async (
+    req: Request,
+    res: Response
+  ) => {
+    try {
+      const user =
+        await User.findById(
+          req.params.id
+        )
+          .select("-password")
+          .populate(
+            "referredBy",
+            "name referralCode"
+          )
+          .populate(
+            "directReferrals",
+            "name referralCode"
+          );
+
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message:
+            "User not found",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: user,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  };
+
+
+  export const getUserStats =
+  async (
+    req: Request,
+    res: Response
+  ) => {
+    try {
+      const totalUsers =
+        await User.countDocuments();
+
+      const activeUsers =
+        await User.countDocuments({
+          isActive: true,
+        });
+
+      const inactiveUsers =
+        await User.countDocuments({
+          isActive: false,
+        });
+
+      const totalWallet =
+        await User.aggregate([
+          {
+            $group: {
+              _id: null,
+              total: {
+                $sum:
+                  "$walletBalance",
+              },
+            },
+          },
+        ]);
+
+      return res.status(200).json({
+        success: true,
+        data: {
+          totalUsers,
+          activeUsers,
+          inactiveUsers,
+          totalWalletBalance:
+            totalWallet[0]?.total ||
+            0,
+        },
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+      });
+    }
+  };

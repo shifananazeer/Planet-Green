@@ -3,6 +3,7 @@ import Withdrawal from "../models/Withdrawal";
 import User from "../models/User";
 import { AuthRequest } from "../middlewares/authMiddleware";
 import cloudinary from "../config/cloudinary";
+import WalletTransaction from "../models/WalletTransaction";
 
 export const createWithdrawalRequest =
   async (
@@ -81,6 +82,28 @@ export const createWithdrawalRequest =
           paymentMethod,
         });
 
+      // Deduct wallet immediately
+      user.walletBalance =
+        user.walletBalance -
+        amount;
+
+      await user.save();
+
+      // Wallet transaction
+      await WalletTransaction.create({
+        user: user._id,
+        amount,
+        transactionType:
+          "debit",
+        type: "withdrawal",
+        description:
+          "Withdrawal request submitted",
+        referenceId:
+          withdrawal._id,
+        balanceAfter:
+          user.walletBalance,
+      });
+
       return res.status(201).json({
         success: true,
         message:
@@ -96,7 +119,6 @@ export const createWithdrawalRequest =
       });
     }
   };
-
 
 
   export const getMyWithdrawals =
@@ -372,3 +394,10 @@ export const createWithdrawalRequest =
       });
     }
   };
+
+
+
+
+
+
+  

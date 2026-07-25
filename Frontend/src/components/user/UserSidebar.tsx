@@ -6,6 +6,7 @@ import {
   LogOut,
   ShoppingCart,
   Wallet,
+  Receipt,
 } from "lucide-react";
 import { useState } from "react";
 import {
@@ -65,6 +66,11 @@ export default function UserSidebar({
       label: "Withdrawals",
       path: "/user/withdrawals",
       icon: Wallet,
+    },
+    {
+      label: "Transactions",
+      path: "/user/transactions",
+      icon: Receipt,
     },
     {
       label: "Profile",

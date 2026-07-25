@@ -1,6 +1,18 @@
 import { Router } from "express";
 import { protect , isAdmin } from "../middlewares/authMiddleware";
-import { getPurchaseSetting , updatePurchaseSetting , getAllOrders , updateOrderStatus , getDashboardStats , getRecentCommissions , getRecentOrders , getRecentUsers , getSalesChart } from "../controllers/adminController";
+import { getPurchaseSetting ,
+   updatePurchaseSetting ,
+    getAllOrders , 
+    updateOrderStatus ,
+     getDashboardStats ,
+      getRecentCommissions ,
+       getRecentOrders ,
+        getRecentUsers ,
+         getSalesChart,
+         getAllUsers,
+         getUserDetails,
+         getUserStats
+         } from "../controllers/adminController";
 
 const router = Router();
 
@@ -65,6 +77,27 @@ router.get(
   protect,
   isAdmin,
   getRecentCommissions
+);
+
+router.get(
+  "/users",
+  protect,
+  isAdmin,
+  getAllUsers
+);
+
+router.get(
+  "/users/stats",
+  protect,
+  isAdmin,
+  getUserStats
+);
+
+router.get(
+  "/users/:id",
+  protect,
+  isAdmin,
+  getUserDetails
 );
 
 

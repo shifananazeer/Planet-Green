@@ -26,3 +26,14 @@ export const getWalletSummary =
 
     return res.data;
   };
+
+
+  export const getTransactions =
+  async () => {
+    const response =
+      await api.get(
+        "/wallet/transactions"
+      );
+
+    return response.data;
+  };

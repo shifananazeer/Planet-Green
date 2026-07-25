@@ -2,6 +2,7 @@ import { Response } from "express";
 import { AuthRequest } from "../middlewares/authMiddleware";
 import User from "../models/User";
 import CommissionHistory from "../models/CommissionHistory";
+import WalletTransaction from "../models/WalletTransaction";
 
 export const getWalletSummary = async (
   req: AuthRequest,
@@ -131,6 +132,38 @@ export const getCommissionHistory =
       return res.status(500).json({
         success: false,
         message: "Server Error",
+      });
+    }
+  };
+
+
+    export const getMyTransactions =
+  async (
+    req: AuthRequest,
+    res: Response
+  ) => {
+    try {
+      const transactions =
+        await WalletTransaction.find({
+          user: req.userId,
+        })
+          .sort({
+            createdAt: -1,
+          });
+
+      return res.status(200).json({
+        success: true,
+        count:
+          transactions.length,
+        data: transactions,
+      });
+    } catch (error) {
+      console.log(error);
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "Server Error",
       });
     }
   };

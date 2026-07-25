@@ -3,6 +3,7 @@ import {
   getWalletSummary,
   getCommissionHistory,
   getWalletDashboard,
+  getMyTransactions,
 } from "../controllers/walletController";
 
 import { protect } from "../middlewares/authMiddleware";
@@ -26,5 +27,14 @@ router.get(
   protect,
   getWalletDashboard
 );
+
+
+router.get(
+  "/transactions",
+  protect,
+  getMyTransactions
+);
+
+
 
 export default router;

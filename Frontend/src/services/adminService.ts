@@ -87,3 +87,36 @@ export const getRecentCommissions =
 
     return data;
   };
+
+
+  export const getAllUsers = async (
+  page = 1,
+  limit = 10,
+  search = ""
+) => {
+  const response = await api.get(
+    `/admin/users?page=${page}&limit=${limit}&search=${search}`
+  );
+
+  return response.data;
+};
+
+export const getUserStats =
+  async () => {
+    const response =
+      await api.get(
+        "/admin/users/stats"
+      );
+
+    return response.data;
+  };
+
+export const getUserDetails =
+  async (id: string) => {
+    const response =
+      await api.get(
+        `/admin/users/${id}`
+      );
+console.log("res" , response.data)
+    return response.data;
+  };
