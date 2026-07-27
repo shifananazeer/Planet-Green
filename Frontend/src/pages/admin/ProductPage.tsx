@@ -67,20 +67,20 @@ export default function ProductPage() {
     fetchCategories();
   }, []);
 
-  const handleDelete = async (id: string) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
+  // const handleDelete = async (id: string) => {
+  //   const confirmed = window.confirm(
+  //     "Are you sure you want to delete this product?"
+  //   );
 
-    if (!confirmed) return;
+  //   if (!confirmed) return;
 
-    try {
-      await deleteProduct(id);
-      fetchProducts();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     await deleteProduct(id);
+  //     fetchProducts();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product);

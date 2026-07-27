@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMyOrders } from "../../services/userServices";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 interface Order {
   _id: string;
@@ -27,7 +27,7 @@ export default function MyOrdersPage() {
   const [loading, setLoading] =
     useState(true);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     fetchOrders();
