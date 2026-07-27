@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+     <div className="min-h-screen">
       <Navbar />
 
       {/* Hero Section */}
