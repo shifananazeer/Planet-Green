@@ -1,4 +1,8 @@
 {
+  "name": "planet-green-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/server.js",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.10.0",
