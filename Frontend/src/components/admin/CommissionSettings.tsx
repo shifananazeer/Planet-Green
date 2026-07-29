@@ -3,7 +3,7 @@ import {
   
   getCommissionLevels,
   createCommissionLevel,
-  updateCommissionLevel,
+  // updateCommissionLevel,
   deleteCommissionLevel,
 } from "../../services/commissionService";
 
@@ -53,20 +53,20 @@ export default function CommissionSettings() {
     }
   };
 
-  const handleUpdate = async (
-    item: CommissionLevel
-  ) => {
-    try {
-      await updateCommissionLevel(item._id, {
-        amount: item.amount,
-        isActive: item.isActive,
-      });
+  // const handleUpdate = async (
+  //   item: CommissionLevel
+  // ) => {
+  //   try {
+  //     await updateCommissionLevel(item._id, {
+  //       amount: item.amount,
+  //       isActive: item.isActive,
+  //     });
 
-      alert("Updated Successfully");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     alert("Updated Successfully");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -186,14 +186,14 @@ export default function CommissionSettings() {
             </label>
 
             <div className="flex gap-2">
-              <button
+              {/* <button
                 onClick={() =>
                   handleUpdate(item)
                 }
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg"
               >
                 Update
-              </button>
+              </button> */}
 
               <button
                 onClick={() =>
