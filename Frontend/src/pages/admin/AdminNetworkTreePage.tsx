@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Tree from "react-d3-tree";
 import { getFullNetworkTree , getNetworkStats } from "../../services/referralService";
-
+import CommissionPlans from "../../components/admin/CommissionPlans";
 interface TreeNode {
   _id: string;
   name: string;
@@ -223,6 +223,7 @@ useEffect(() => {
     </h2>
   </div>
 </div>
+   <CommissionPlans />
 
 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
   <div className="bg-cyan-50 rounded-xl p-4">
