@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   getProfile,
   updateProfile,
+  changePassword
 } from "../services/profileService";
 
 interface User {
@@ -56,6 +57,9 @@ export default function ProfilePage() {
     const [showEditModal, setShowEditModal] =
   useState(false);
 
+  const [passwordError, setPasswordError] =
+  useState("");
+  
 const [formData, setFormData] =
   useState({
     name: "",
@@ -73,6 +77,19 @@ const [formData, setFormData] =
 
     profileImage: null as File | null,
   });
+  const [
+  showPasswordModal,
+  setShowPasswordModal,
+] = useState(false);
+
+const [
+  passwordData,
+  setPasswordData,
+] = useState({
+  currentPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+});
 
   const fetchProfile =
     async () => {
@@ -250,6 +267,46 @@ const handleProfileUpdate =
       console.log(error);
     }
   };
+
+
+  const handleChangePassword =
+  async () => {
+    if (
+      passwordData.newPassword !==
+      passwordData.confirmPassword
+    ) {
+      setPasswordError(
+        "Passwords do not match"
+      );
+      return;
+    }
+
+    setPasswordError("");
+
+    try {
+      await changePassword({
+        currentPassword:
+          passwordData.currentPassword,
+        newPassword:
+          passwordData.newPassword,
+      });
+
+      alert(
+        "Password changed successfully"
+      );
+
+      setShowPasswordModal(false);
+
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <div className="max-w-7xl mx-auto p-4 md:p-6">
@@ -518,6 +575,33 @@ const handleProfileUpdate =
             </div>
 
           </div>
+
+          <div className="bg-white rounded-3xl shadow border p-6">
+  <div className="flex items-center justify-between">
+    <div>
+      <h3 className="text-xl font-bold">
+        Security
+      </h3>
+
+      <p className="text-gray-500 text-sm mt-1">
+        Change your account password
+      </p>
+    </div>
+
+    <button
+      onClick={() => setShowPasswordModal(true)}
+      className="
+        px-5
+        py-2
+        bg-red-600
+        text-white
+        rounded-xl
+      "
+    >
+      Change Password
+    </button>
+  </div>
+</div>
           {/* Statistics */}
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -958,6 +1042,99 @@ const handleProfileUpdate =
   </div>
 )}
 
+{showPasswordModal && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="bg-white rounded-3xl w-full max-w-md p-6">
+      <h2 className="text-2xl font-bold mb-5">
+        Change Password
+      </h2>
+
+      <div className="space-y-4">
+
+        <input
+          type="password"
+          placeholder="Current Password"
+          value={passwordData.currentPassword}
+          onChange={(e) =>
+            setPasswordData({
+              ...passwordData,
+              currentPassword:
+                e.target.value,
+            })
+          }
+          className="w-full border rounded-xl p-3"
+        />
+
+        <input
+          type="password"
+          placeholder="New Password"
+          value={passwordData.newPassword}
+          onChange={(e) =>
+            setPasswordData({
+              ...passwordData,
+              newPassword:
+                e.target.value,
+            })
+          }
+          className="w-full border rounded-xl p-3"
+        />
+
+       <input
+  type="password"
+  placeholder="Confirm Password"
+  value={passwordData.confirmPassword}
+  onChange={(e) => {
+    const value = e.target.value;
+
+    setPasswordData({
+      ...passwordData,
+      confirmPassword: value,
+    });
+
+    if (
+      passwordData.newPassword &&
+      value !== passwordData.newPassword
+    ) {
+      setPasswordError(
+        "Passwords do not match"
+      );
+    } else {
+      setPasswordError("");
+    }
+  }}
+  className="w-full border rounded-xl p-3"
+/>
+
+{passwordError && (
+  <p className="text-red-500 text-sm mt-1">
+    {passwordError}
+  </p>
+)}
+      </div>
+
+      <div className="flex justify-end gap-3 mt-6">
+
+        <button
+          onClick={() =>
+            setShowPasswordModal(false)
+          }
+          className="px-5 py-2 border rounded-xl"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={handleChangePassword}
+          className="px-5 py-2 bg-red-600 text-white rounded-xl"
+        >
+          Update Password
+        </button>
+
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
@@ -978,6 +1155,7 @@ function Info({
       <p className="font-semibold">
         {value}
       </p>
+
 
       
     </div>
