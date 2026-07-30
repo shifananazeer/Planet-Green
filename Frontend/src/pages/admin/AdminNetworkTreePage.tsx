@@ -223,7 +223,7 @@ useEffect(() => {
     </h2>
   </div>
 </div>
-   <CommissionPlans />
+  
 
 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
   <div className="bg-cyan-50 rounded-xl p-4">
@@ -270,7 +270,7 @@ useEffect(() => {
     </h2>
   </div>
 </div>
-
+ <CommissionPlans />
         <div className="w-full h-[75vh] overflow-auto">
           <Tree
             data={treeData}
